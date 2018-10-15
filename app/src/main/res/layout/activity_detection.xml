@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetectionActivity">
+
+    <ListView
+        android:id="@+id/lv_activity_detection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/barrier_activity_detection"/>
+
+    <ImageView
+        android:id="@+id/iv_activity_detection_check"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_48"
+        android:padding="@dimen/dp_8"
+        android:src="@android:drawable/checkbox_on_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/iv_activity_detection_run" />
+
+    <ImageView
+        android:id="@+id/iv_activity_detection_run"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_48"
+        android:padding="@dimen/dp_8"
+        android:src="@android:drawable/ic_media_play"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/iv_activity_detection_check"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier_activity_detection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="iv_activity_detection_check,iv_activity_detection_run"
+        app:barrierDirection="top" />
+
+</android.support.constraint.ConstraintLayout>
