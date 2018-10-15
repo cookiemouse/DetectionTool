@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dp_8"
+    tools:context=".activity.EditActivity">
+
+    <TextView
+        android:id="@+id/tv_activity_edit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_32"
+        android:layout_marginLeft="@dimen/dp_32"
+        android:layout_marginStart="@dimen/dp_32"
+        android:layout_marginTop="@dimen/dp_24"
+        android:gravity="center"
+        android:text="@string/name"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintEnd_toStartOf="@id/et_activity_edit_name"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_activity_edit_name"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_32"
+        android:layout_marginEnd="@dimen/dp_32"
+        android:layout_marginLeft="@dimen/dp_32"
+        android:layout_marginRight="@dimen/dp_32"
+        android:layout_marginStart="@dimen/dp_32"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical|start"
+        android:hint="@string/enter_name"
+        android:inputType="text"
+        android:lines="1"
+        android:singleLine="true"
+        android:textSize="@dimen/sp_16"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="@id/tv_activity_edit_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/tv_activity_edit_name"
+        app:layout_constraintTop_toTopOf="@id/tv_activity_edit_name" />
+
+    <TextView
+        android:id="@+id/tv_activity_edit_address"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_32"
+        android:layout_marginLeft="@dimen/dp_32"
+        android:layout_marginStart="@dimen/dp_32"
+        android:layout_marginTop="@dimen/dp_8"
+        android:gravity="center"
+        android:text="@string/address"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_activity_edit_name" />
+
+    <EditText
+        android:id="@+id/et_activity_edit_address"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_32"
+        android:layout_marginEnd="@dimen/dp_32"
+        android:layout_marginLeft="@dimen/dp_32"
+        android:layout_marginRight="@dimen/dp_32"
+        android:layout_marginStart="@dimen/dp_32"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical|start"
+        android:hint="@string/enter_address"
+        android:inputType="text"
+        android:lines="1"
+        android:singleLine="true"
+        android:textSize="@dimen/sp_16"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="@id/tv_activity_edit_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/tv_activity_edit_address"
+        app:layout_constraintTop_toTopOf="@id/tv_activity_edit_address" />
+
+    <TextView
+        android:id="@+id/tv_activity_edit_parameter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/parameter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_activity_edit_address" />
+
+    <ListView
+        android:id="@+id/lv_activity_edit_parameter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/shape_list_bg"
+        android:scrollbars="none"
+        android:layout_marginTop="8dp"
+        android:divider="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_activity_edit_save"
+        app:layout_constraintTop_toBottomOf="@id/tv_activity_edit_parameter"/>
+
+    <Button
+        android:id="@+id/btn_activity_edit_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:text="@string/save"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

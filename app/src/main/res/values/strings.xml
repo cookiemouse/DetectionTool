@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">DetectionTool</string>
+    <string name="name">名称</string>
+    <string name="enter_name">请输入名称</string>
+    <string name="address">地址</string>
+    <string name="enter_address">请输入地址</string>
+    <string name="parameter">参数</string>
+    <string name="save">保存</string>
+    <string name="key">键：</string>
+    <string name="value">值：</string>
+    <string name="enter_key">请输入Key</string>
+    <string name="enter_value">请输入Value</string>
 </resources>
