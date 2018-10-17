@@ -6,15 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".DetectionActivity">
 
-    <ListView
-        android:id="@+id/lv_activity_detection"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_activity_detection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@android:color/transparent"
-        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@id/barrier_activity_detection"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintBottom_toTopOf="@id/barrier_activity_detection"/>
+        app:layout_constraintVertical_bias="0">
+
+        <ListView
+            android:id="@+id/lv_activity_detection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:scrollbars="none" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ImageView
         android:id="@+id/iv_activity_detection_check"
@@ -22,7 +29,7 @@
         android:layout_height="@dimen/dp_48"
         android:padding="@dimen/dp_8"
         android:src="@android:drawable/checkbox_on_background"
-        app:layout_constraintBottom_toBottomOf ="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/iv_activity_detection_run" />
@@ -41,7 +48,7 @@
         android:id="@+id/barrier_activity_detection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="iv_activity_detection_check,iv_activity_detection_run"
-        app:barrierDirection="top" />
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="iv_activity_detection_check,iv_activity_detection_run" />
 
 </android.support.constraint.ConstraintLayout>

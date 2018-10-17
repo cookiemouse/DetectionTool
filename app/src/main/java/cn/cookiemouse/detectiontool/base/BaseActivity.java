@@ -93,7 +93,7 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (null == mOnBaseListener) {
-                    BaseActivity.this.finish();
+                    BaseActivity.this.onBackPressed();
                     return;
                 }
                 mOnBaseListener.onLeftClick();
