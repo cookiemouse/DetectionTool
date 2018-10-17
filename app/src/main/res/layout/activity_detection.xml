@@ -22,7 +22,7 @@
         android:layout_height="@dimen/dp_48"
         android:padding="@dimen/dp_8"
         android:src="@android:drawable/checkbox_on_background"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf ="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/iv_activity_detection_run" />

@@ -23,10 +23,12 @@
         android:background="@android:color/transparent"
         android:hint="@string/enter_key"
         android:inputType=""
+        android:lines="1"
+        android:singleLine="true"
         android:textSize="@dimen/sp_16"
-        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintBottom_toBottomOf="@id/tv_layout_item_parameter_key"
         app:layout_constraintEnd_toStartOf="@+id/iv_layout_item_parameter"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/tv_layout_item_parameter_key"
         app:layout_constraintTop_toTopOf="@+id/tv_layout_item_parameter_key" />
 
@@ -47,10 +49,12 @@
         android:background="@android:color/transparent"
         android:hint="@string/enter_value"
         android:inputType=""
+        android:lines="1"
+        android:singleLine="true"
         android:textSize="@dimen/sp_16"
-        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintBottom_toBottomOf="@id/tv_layout_item_parameter_value"
         app:layout_constraintEnd_toStartOf="@+id/iv_layout_item_parameter"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/tv_layout_item_parameter_value"
         app:layout_constraintTop_toTopOf="@id/tv_layout_item_parameter_value" />
 
@@ -69,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_1"
         android:layout_marginTop="@dimen/dp_4"
-        app:layout_constraintTop_toBottomOf="@id/tv_layout_item_parameter_value"
-        android:background="@color/colorGay"/>
+        android:background="@color/colorGay"
+        app:layout_constraintTop_toBottomOf="@id/tv_layout_item_parameter_value" />
 
 </android.support.constraint.ConstraintLayout>

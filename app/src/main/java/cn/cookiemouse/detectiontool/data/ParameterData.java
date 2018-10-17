@@ -2,6 +2,7 @@ package cn.cookiemouse.detectiontool.data;
 
 public class ParameterData {
     private String key, value;
+    private boolean typeAdd;
 
     public ParameterData() {
     }
@@ -9,6 +10,7 @@ public class ParameterData {
     public ParameterData(String key, String value) {
         this.key = key;
         this.value = value;
+        this.typeAdd = false;
     }
 
     public String getKey() {
@@ -25,5 +27,13 @@ public class ParameterData {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public boolean isTypeAdd() {
+        return typeAdd;
+    }
+
+    public void setTypeAdd(boolean typeAdd) {
+        this.typeAdd = typeAdd;
     }
 }
