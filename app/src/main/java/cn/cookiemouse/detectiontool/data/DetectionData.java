@@ -4,8 +4,7 @@ public class DetectionData {
     private long rowid = -1;
     private String name;
     private String address;
-    private boolean checked;    //  是否勾选
-    private int status;
+    private int status = Data.STATUS_INIT;
 
     public DetectionData(String name, String address) {
         this.name = name;
@@ -40,14 +39,6 @@ public class DetectionData {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
     }
 
     public int getStatus() {

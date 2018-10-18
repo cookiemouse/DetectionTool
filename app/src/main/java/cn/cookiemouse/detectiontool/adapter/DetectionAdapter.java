@@ -1,6 +1,7 @@
 package cn.cookiemouse.detectiontool.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import cn.cookiemouse.detectiontool.R;
+import cn.cookiemouse.detectiontool.data.Data;
 import cn.cookiemouse.detectiontool.data.DetectionData;
 
 public class DetectionAdapter extends BaseAdapter {
+
+    private static final String TAG = "DetectionAdapter";
 
     private Context mContext;
     private List<DetectionData> mDetectionDataList;
@@ -52,6 +56,25 @@ public class DetectionAdapter extends BaseAdapter {
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
+        }
+
+        switch (data.getStatus()) {
+            case Data.STATUS_INIT: {
+                view.setBackgroundResource(R.drawable.shape_item_detection_bg_init);
+                break;
+            }
+            case Data.STATUS_OK: {
+                view.setBackgroundResource(R.drawable.shape_item_detection_bg_ok);
+                break;
+            }
+            case Data.STATUS_ERROR: {
+                view.setBackgroundResource(R.drawable.shape_item_detection_bg_error);
+                break;
+            }
+            default: {
+                view.setBackgroundResource(R.drawable.shape_item_detection_bg_init);
+                Log.i(TAG, "getView: ");
+            }
         }
 
         viewHolder.tvName.setText(data.getName());

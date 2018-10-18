@@ -37,4 +37,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation(name: 'dialogutils', ext: 'aar')
     implementation 'com.yanzhenjie:permission:2.0.0-rc12'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
 }

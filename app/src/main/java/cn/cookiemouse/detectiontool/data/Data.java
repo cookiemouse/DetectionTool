@@ -9,4 +9,8 @@ public class Data {
     public static final String DATA_INTENT_ROWID = "data_intent_rowid";
 
     public static final long DATA_INIT_ROWID = -1;
+
+    public static final int STATUS_INIT = 0x00;
+    public static final int STATUS_OK = 0x01;
+    public static final int STATUS_ERROR = 0x02;
 }
