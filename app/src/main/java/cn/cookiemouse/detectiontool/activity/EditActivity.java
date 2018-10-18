@@ -2,6 +2,7 @@ package cn.cookiemouse.detectiontool.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,9 +17,9 @@ import java.util.List;
 import cn.cookiemouse.detectiontool.R;
 import cn.cookiemouse.detectiontool.adapter.ParameterAdapter;
 import cn.cookiemouse.detectiontool.base.BaseActivity;
+import cn.cookiemouse.detectiontool.data.Data;
 import cn.cookiemouse.detectiontool.data.DetectionData;
 import cn.cookiemouse.detectiontool.data.ParameterData;
-import cn.cookiemouse.detectiontool.interfaces.OnBaseListener;
 import cn.cookiemouse.detectiontool.utils.DatabaseU;
 import cn.cookiemouse.detectiontool.utils.RegularU;
 import cn.cookiemouse.detectiontool.utils.ToastU;
@@ -40,6 +41,8 @@ public class EditActivity extends BaseActivity implements View.OnClickListener {
 
     //  数据库操作
     private DatabaseU mDatabaseU;
+    //  传rowid过来
+    private long mRowDetectionId = Data.DATA_INIT_ROWID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +80,23 @@ public class EditActivity extends BaseActivity implements View.OnClickListener {
                     mToastU.showToast("请输入地址");
                     return;
                 }
-                mDatabaseU.addDetection(new DetectionData(name, address));
+                Log.i(TAG, "onClick: mRowDetectionId-->" + mRowDetectionId);
+                if (Data.DATA_INIT_ROWID == mRowDetectionId) {
+                    mRowDetectionId = mDatabaseU.addDetection(new DetectionData(name, address));
+                } else {
+                    mDatabaseU.addDetection(new DetectionData(mRowDetectionId, name, address));
+                }
+                //  填写mRowDetectionId，添加
+                for (ParameterData parameterData : mParameterDataList) {
+                    parameterData.setRowidDetection(mRowDetectionId);
+                }
+
+                //  保存参数
+                //  先清空该目录下的参数，再保存
+                mDatabaseU.deleteParameter(mRowDetectionId);
+                mDatabaseU.addParameter(mParameterDataList);
+
+                EditActivity.this.finish();
                 break;
             }
         }
@@ -86,6 +105,9 @@ public class EditActivity extends BaseActivity implements View.OnClickListener {
     private void init() {
         mToastU = new ToastU(this);
         mDatabaseU = new DatabaseU(this);
+        Intent intent = getIntent();
+        mRowDetectionId = intent.getLongExtra(Data.DATA_INTENT_ROWID, Data.DATA_INIT_ROWID);
+        Log.i(TAG, "init: mRowDetectionId-->" + mRowDetectionId);
 
         initView();
 
@@ -106,14 +128,40 @@ public class EditActivity extends BaseActivity implements View.OnClickListener {
 
     private void initData() {
         mParameterDataList = new ArrayList<>();
-        mParameterDataList.add(new ParameterData());
+        loadData();
 
         mParameterAdapter = new ParameterAdapter(this, mParameterDataList);
         mListView.setAdapter(mParameterAdapter);
+
     }
 
     private void initEvent() {
         mButtonSave.setOnClickListener(this);
+    }
+
+    //  loadData
+    private void loadData() {
+        loadDetection();
+        loadParameter();
+    }
+
+    //  loadDetection
+    private void loadDetection() {
+        DetectionData detectionData = mDatabaseU.getDetection(mRowDetectionId);
+        if (null != detectionData) {
+            mEditTextName.setText(detectionData.getName());
+            mEditTextAddress.setText(detectionData.getAddress());
+        }
+    }
+
+    //  loadParameter
+    private void loadParameter() {
+        mParameterDataList.clear();
+        mParameterDataList.addAll(mDatabaseU.getParameter(mRowDetectionId));
+        Log.i(TAG, "loadParameter: size-->" + mParameterDataList.size());
+        if (mParameterDataList.size() < 1) {
+            mParameterDataList.add(new ParameterData());
+        }
     }
 
     //  退出页面时提醒保存

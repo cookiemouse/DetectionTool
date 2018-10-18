@@ -25,13 +25,13 @@ public class ParameterAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<ParameterData> mParameterDataList;
-    private List<ParameterData> mParameterDataListHolder;
+//    private List<ParameterData> mParameterDataListHolder;
 
     public ParameterAdapter(Context context, List<ParameterData> mParameterDataList) {
         this.mContext = context;
         this.mParameterDataList = mParameterDataList;
-        mParameterDataListHolder = new ArrayList<>();
-        mParameterDataListHolder.addAll(mParameterDataList);
+//        mParameterDataListHolder = new ArrayList<>();
+//        mParameterDataListHolder.addAll(mParameterDataList);
     }
 
     @Override
@@ -66,8 +66,8 @@ public class ParameterAdapter extends BaseAdapter {
 
             view.setTag(viewHolder);
 
-            viewHolder.etKey.addTextChangedListener(new KeyTextChangedListener(viewHolder, mParameterDataListHolder));
-            viewHolder.etValue.addTextChangedListener(new ValueTextChangedListener(viewHolder, mParameterDataListHolder));
+            viewHolder.etKey.addTextChangedListener(new KeyTextChangedListener(viewHolder));
+            viewHolder.etValue.addTextChangedListener(new ValueTextChangedListener(viewHolder));
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
@@ -91,13 +91,13 @@ public class ParameterAdapter extends BaseAdapter {
                 int last = size - 1;
                 if (position == last) {
                     mParameterDataList.add(new ParameterData());
-                    mParameterDataListHolder.add(new ParameterData());
+//                    mParameterDataListHolder.add(new ParameterData());
                 } else {
                     mParameterDataList.remove(position);
-                    mParameterDataListHolder.remove(position);
+//                    mParameterDataListHolder.remove(position);
                 }
-                mParameterDataList.clear();
-                mParameterDataList.addAll(mParameterDataListHolder);
+//                mParameterDataList.clear();
+//                mParameterDataList.addAll(mParameterDataListHolder);
                 ParameterAdapter.this.notifyDataSetChanged();
             }
         });
@@ -108,11 +108,11 @@ public class ParameterAdapter extends BaseAdapter {
     public class KeyTextChangedListener implements TextWatcher {
 
         private ViewHolder holder;
-        private List<ParameterData> contents;
+//        private List<ParameterData> contents;
 
-        KeyTextChangedListener(ViewHolder holder, List<ParameterData> contents) {
+        KeyTextChangedListener(ViewHolder holder) {
             this.holder = holder;
-            this.contents = contents;
+//            this.contents = contents;
         }
 
         @Override
@@ -127,22 +127,22 @@ public class ParameterAdapter extends BaseAdapter {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            if (holder != null && contents != null) {
-                int position = (int) holder.etKey.getTag();
-                ParameterData data = mParameterDataListHolder.get(position);
-                data.setKey(editable.toString());
-            }
+//            if (holder != null && contents != null) {
+//            }
+            int position = (int) holder.etKey.getTag();
+            ParameterData data = mParameterDataList.get(position);
+            data.setKey(editable.toString());
         }
     }
 
     public class ValueTextChangedListener implements TextWatcher {
 
         private ViewHolder holder;
-        private List<ParameterData> contents;
+//        private List<ParameterData> contents;
 
-        ValueTextChangedListener(ViewHolder holder, List<ParameterData> contents) {
+        ValueTextChangedListener(ViewHolder holder) {
             this.holder = holder;
-            this.contents = contents;
+//            this.contents = contents;
         }
 
         @Override
@@ -155,11 +155,11 @@ public class ParameterAdapter extends BaseAdapter {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            if (holder != null && contents != null) {
-                int position = (int) holder.etKey.getTag();
-                ParameterData data = mParameterDataListHolder.get(position);
-                data.setValue(editable.toString());
-            }
+//            if (holder != null && contents != null) {
+//            }
+            int position = (int) holder.etKey.getTag();
+            ParameterData data = mParameterDataList.get(position);
+            data.setValue(editable.toString());
         }
     }
 

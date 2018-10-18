@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.yanzhenjie.permission.Action;
@@ -17,6 +19,7 @@ import java.util.List;
 import cn.cookiemouse.detectiontool.activity.EditActivity;
 import cn.cookiemouse.detectiontool.adapter.DetectionAdapter;
 import cn.cookiemouse.detectiontool.base.BaseActivity;
+import cn.cookiemouse.detectiontool.data.Data;
 import cn.cookiemouse.detectiontool.data.DetectionData;
 import cn.cookiemouse.detectiontool.data.ParameterData;
 import cn.cookiemouse.detectiontool.interfaces.OnBaseListener;
@@ -51,6 +54,13 @@ public class DetectionActivity extends BaseActivity {
         init();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //  加载数据库数据
+        loadDetectionToList();
+    }
+
     private void init() {
         this.setTitle("检测");
         this.setRightVisibility(true);
@@ -74,10 +84,6 @@ public class DetectionActivity extends BaseActivity {
     private void initData() {
         mDetectionDataList = new ArrayList<>();
         mHashMapParameterDataList = new HashMap<>();
-
-        //  加载数据库数据
-        loadDetectiontoList();
-
         mDetectionAdapter = new DetectionAdapter(this, mDetectionDataList);
         mListView.setAdapter(mDetectionAdapter);
     }
@@ -99,6 +105,7 @@ public class DetectionActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 mTimerU.start();
+                loadDetectionToList();
             }
         });
 
@@ -118,11 +125,36 @@ public class DetectionActivity extends BaseActivity {
             public void onCancel() {
             }
         });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DetectionData data = mDetectionDataList.get(i);
+                toEdit(data.getRowid());
+            }
+        });
+
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DetectionData data = mDetectionDataList.get(i);
+                mDatabaseU.deleteDetection(data);
+                loadDetectionToList();
+                return true;
+            }
+        });
     }
 
     //  跳转到编辑页面
     private void toEdit() {
         Intent intent = new Intent(DetectionActivity.this, EditActivity.class);
+        startActivity(intent);
+    }
+
+    //  跳转到编辑页面
+    private void toEdit(long rowid) {
+        Intent intent = new Intent(DetectionActivity.this, EditActivity.class);
+        intent.putExtra(Data.DATA_INTENT_ROWID, rowid);
         startActivity(intent);
     }
 
@@ -146,9 +178,11 @@ public class DetectionActivity extends BaseActivity {
     }
 
     //  获取Detection
-    private void loadDetectiontoList() {
+    private void loadDetectionToList() {
+        mDetectionDataList.clear();
         if (null != mDatabaseU) {
             mDetectionDataList.addAll(mDatabaseU.getDetection());
+            mDetectionAdapter.notifyDataSetChanged();
         }
     }
 }

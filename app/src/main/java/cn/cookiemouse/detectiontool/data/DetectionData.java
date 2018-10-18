@@ -1,7 +1,7 @@
 package cn.cookiemouse.detectiontool.data;
 
 public class DetectionData {
-    private int rowid = -1;
+    private long rowid = -1;
     private String name;
     private String address;
     private boolean checked;    //  是否勾选
@@ -12,17 +12,17 @@ public class DetectionData {
         this.address = address;
     }
 
-    public DetectionData(int rowid, String name, String address) {
+    public DetectionData(long rowid, String name, String address) {
         this.rowid = rowid;
         this.name = name;
         this.address = address;
     }
 
-    public int getRowid() {
+    public long getRowid() {
         return rowid;
     }
 
-    public void setRowid(int rowid) {
+    public void setRowid(long rowid) {
         this.rowid = rowid;
     }
 

@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_DETECTION = "create table " + Data.DATA_TAB_DETECTION
             + "(name TEXT,address TEXT)";
     private static final String TABLE_PARAMETER = "create table " + Data.DATA_TAB_PARAMETER
-            + "(aid INTEGER,tKey TEXT,tValue TEXT)";
+            + "(detectionId INTEGER,tKey TEXT,tValue TEXT)";
 
 
     public DatabaseHelper(Context context, String name) {
