@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
@@ -33,6 +35,7 @@ import cn.cookiemouse.detectiontool.utils.TimerU;
 import cn.cookiemouse.detectiontool.utils.ToastU;
 import cn.cookiemouse.dialogutils.LoadingDialog;
 import cn.cookiemouse.dialogutils.MessageDialog;
+import cn.cookiemouse.dialogutils.ViewDialog;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -66,6 +69,10 @@ public class DetectionActivity extends BaseActivity implements View.OnClickListe
     private LoadingDialog mLoadingDialog;
 
     private MessageDialog mMessageDialog;
+
+    //  长控显示内容
+    private boolean mIsLongClick = false;
+    private ViewDialog mViewDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,6 +214,8 @@ public class DetectionActivity extends BaseActivity implements View.OnClickListe
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 // TODO: 18-10-19 显示内容
+                mIsLongClick = true;
+                netRequest(i);
                 return true;
             }
         });
@@ -269,12 +278,15 @@ public class DetectionActivity extends BaseActivity implements View.OnClickListe
         showLoading();
         mNetworkU.connectUrl(tagRequest, url, hashMap, new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(Call call,final IOException e) {
                 Log.i(TAG, "onFailure: ");
                 try {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            if (mIsLongClick) {
+                                showViewDialog(e.toString());
+                            }
                             mDetectionDataList.get(Integer.valueOf(tagRequest)).setStatus(Data.STATUS_ERROR);
                             mDetectionAdapter.notifyDataSetChanged();
                         }
@@ -289,12 +301,15 @@ public class DetectionActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 try {
-                    String str = response.body().string();
+                    final String str = response.body().string();
                     Log.i(TAG, "onResponse: -->" + str);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Log.i(TAG, "run: tag=position-->" + tagRequest);
+                            if (mIsLongClick){
+                                showViewDialog(str);
+                            }
                             if (response.code() < 400) {
                                 mDetectionDataList.get(Integer.valueOf(tagRequest)).setStatus(Data.STATUS_OK);
                             } else {
@@ -361,6 +376,18 @@ public class DetectionActivity extends BaseActivity implements View.OnClickListe
                         mMessageDialog.dismiss();
                     }
                 })
+                .show();
+    }
+
+    //  显示长控内容
+    private void showViewDialog(String msg) {
+        View viewLongClick = LayoutInflater.from(this).inflate(R.layout.layout_message_view, null);
+        TextView textView = viewLongClick.findViewById(R.id.tv_layout_message_view);
+        textView.setText(msg);
+        mIsLongClick = false;
+        mViewDialog = ViewDialog.with(this)
+                .setView(viewLongClick)
+                .setCancelable(true)
                 .show();
     }
 }
