@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DetectionTool</string>
+    <string name="app_name">Pron hub</string>
     <string name="name">名称</string>
     <string name="enter_name">请输入名称</string>
     <string name="address">地址</string>

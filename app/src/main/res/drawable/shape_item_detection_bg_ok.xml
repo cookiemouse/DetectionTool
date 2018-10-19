@@ -9,5 +9,5 @@
         android:width="@dimen/px_1"
         android:color="@color/colorWhite" />
 
-    <solid android:color="@color/colorGreen" />
+    <solid android:color="@color/colorIndigo" />
 </shape>
