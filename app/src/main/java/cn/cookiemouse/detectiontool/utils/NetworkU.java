@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -31,24 +33,20 @@ public class NetworkU {
     //  调用请求
     public void connectUrl(String tag, String url, HashMap<String, String> parameter, Callback callback) {
         Log.i(TAG, "connectUrl: url-->" + url);
-        if (!RegularU.isWebAddress(url)){
+        if (!RegularU.isWebAddress(url)) {
             url = "http://" + url;
         }
 
-        MultipartBody.Builder builder = new MultipartBody.Builder();
-        builder.setType(MultipartBody.FORM);
+        FormBody.Builder builder = new FormBody.Builder();
         for (String key : parameter.keySet()) {
-            builder.addFormDataPart(key, parameter.get(key));
+            builder.add(key, parameter.get(key));
             Log.i(TAG, "connectUrl: parameter.key-->" + key + ", value-->" + parameter.get(key));
         }
-
-
-        RequestBody requestBody = builder.build();
 
         Request request = new Request.Builder()
                 .tag(tag)
                 .url(url)
-                .post(requestBody)
+                .post(builder.build())
                 .build();
 
         Call call = mOkHttpClient.newCall(request);
