@@ -11,10 +11,4 @@
 
     <solid android:color="@color/colorWhite" />
 
-    <padding
-        android:bottom="@dimen/dp_4"
-        android:left="@dimen/dp_4"
-        android:right="@dimen/dp_4"
-        android:top="@dimen/dp_4" />
-
 </shape>

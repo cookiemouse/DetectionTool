@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mcxtzhang.swipemenulib.SwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cl_layout_item_detection"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_item_detection_bg_init"
-    android:padding="@dimen/dp_4">
+    android:background="@drawable/shape_item_detection_bg_init">
 
     <TextView
         android:id="@+id/tv_layout_item_detection_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp_64"
         android:gravity="center_vertical"
         android:paddingBottom="@dimen/dp_8"
         android:paddingLeft="@dimen/dp_8"
@@ -17,4 +17,38 @@
         android:text="@string/app_name"
         android:textSize="@dimen/sp_16" />
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="4" />
+
+        <TextView
+            android:id="@+id/tv_layout_item_detection_edit"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_64"
+            android:layout_weight="3"
+            android:background="@color/colorYellow"
+            android:gravity="center"
+            android:text="@string/edit"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:id="@+id/tv_layout_item_detection_delete"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_64"
+            android:layout_weight="3"
+            android:background="@color/colorRed"
+            android:gravity="center"
+            android:text="@string/delete"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_16" />
+    </LinearLayout>
+
+</com.mcxtzhang.swipemenulib.SwipeMenuLayout>

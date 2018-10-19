@@ -10,4 +10,6 @@
     <string name="value">值：</string>
     <string name="enter_key">请输入Key</string>
     <string name="enter_value">请输入Value</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
 </resources>

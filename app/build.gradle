@@ -25,6 +25,7 @@ android {
         flatDir {
             dirs 'libs'
         }
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -38,4 +39,5 @@ dependencies {
     implementation(name: 'dialogutils', ext: 'aar')
     implementation 'com.yanzhenjie:permission:2.0.0-rc12'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
 }

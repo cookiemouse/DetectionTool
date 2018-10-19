@@ -19,12 +19,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.cookiemouse.detectiontool.activity.EditActivity;
+import cn.cookiemouse.detectiontool.activity.TestActivity;
 import cn.cookiemouse.detectiontool.adapter.DetectionAdapter;
 import cn.cookiemouse.detectiontool.base.BaseActivity;
 import cn.cookiemouse.detectiontool.data.Data;
 import cn.cookiemouse.detectiontool.data.DetectionData;
 import cn.cookiemouse.detectiontool.data.ParameterData;
 import cn.cookiemouse.detectiontool.interfaces.OnBaseListener;
+import cn.cookiemouse.detectiontool.interfaces.OnDetectionItemListener;
 import cn.cookiemouse.detectiontool.utils.DatabaseU;
 import cn.cookiemouse.detectiontool.utils.NetworkU;
 import cn.cookiemouse.detectiontool.utils.TimerU;
@@ -148,22 +150,32 @@ public class DetectionActivity extends BaseActivity implements View.OnClickListe
             }
         });
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mDetectionAdapter.setOnDetectionItemListener(new OnDetectionItemListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                netRequest(i);
+            public void onDelete(int position) {
+                DetectionData data = mDetectionDataList.get(position);
+                long rowid = data.getRowid();
+                mDatabaseU.deleteDetection(data);
+                mDatabaseU.deleteParameter(rowid);
+                loadDetectionToList();
+            }
+
+            @Override
+            public void onEdit(int position) {
+                DetectionData data = mDetectionDataList.get(position);
+                toEdit(data.getRowid());
+            }
+
+            @Override
+            public void onItemClick(int position) {
+                netRequest(position);
             }
         });
 
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                DetectionData data = mDetectionDataList.get(i);
-//                mDatabaseU.deleteDetection(data);
-//                loadDetectionToList();
-
-                DetectionData data = mDetectionDataList.get(i);
-                toEdit(data.getRowid());
+                // TODO: 18-10-19 显示内容
                 return true;
             }
         });
