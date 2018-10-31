@@ -3,6 +3,7 @@ package cn.cookiemouse.detectiontool;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -104,7 +105,20 @@ public class DetectionActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_activity_detection_run: {
-                netRequestAll();
+                if (null != mDetectionDataList) {
+                    for (DetectionData data : mDetectionDataList) {
+                        data.setStatus(Data.STATUS_INIT);
+                    }
+                    if (null != mDetectionAdapter) {
+                        mDetectionAdapter.notifyDataSetChanged();
+                    }
+                }
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        //execute the task
+                        netRequestAll();
+                    }
+                }, 500);
                 break;
             }
         }
