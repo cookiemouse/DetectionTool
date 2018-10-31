@@ -31,6 +31,7 @@ import cn.cookiemouse.detectiontool.interfaces.OnBaseListener;
 import cn.cookiemouse.detectiontool.interfaces.OnDetectionItemListener;
 import cn.cookiemouse.detectiontool.utils.DatabaseU;
 import cn.cookiemouse.detectiontool.utils.NetworkU;
+import cn.cookiemouse.detectiontool.utils.RegularU;
 import cn.cookiemouse.detectiontool.utils.TimerU;
 import cn.cookiemouse.detectiontool.utils.ToastU;
 import cn.cookiemouse.dialogutils.LoadingDialog;
@@ -275,10 +276,14 @@ public class DetectionActivity extends BaseActivity implements View.OnClickListe
         for (ParameterData parameterData : mDatabaseU.getParameter(rowid)) {
             hashMap.put(parameterData.getKey(), parameterData.getValue());
         }
+        if (!RegularU.isEnableAddress(url)) {
+            mToastU.showToast("非有效地址！");
+            return;
+        }
         showLoading();
         mNetworkU.connectUrl(tagRequest, url, hashMap, new Callback() {
             @Override
-            public void onFailure(Call call,final IOException e) {
+            public void onFailure(Call call, final IOException e) {
                 Log.i(TAG, "onFailure: ");
                 try {
                     runOnUiThread(new Runnable() {
@@ -307,7 +312,7 @@ public class DetectionActivity extends BaseActivity implements View.OnClickListe
                         @Override
                         public void run() {
                             Log.i(TAG, "run: tag=position-->" + tagRequest);
-                            if (mIsLongClick){
+                            if (mIsLongClick) {
                                 showViewDialog(str);
                             }
                             if (response.code() < 400) {
