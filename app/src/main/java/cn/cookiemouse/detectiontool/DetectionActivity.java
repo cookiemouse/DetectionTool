@@ -278,6 +278,8 @@ public class DetectionActivity extends BaseActivity implements View.OnClickListe
         }
         if (!RegularU.isEnableAddress(url)) {
             mToastU.showToast("非有效地址！");
+            data.setStatus(Data.STATUS_ERROR);
+            mDetectionAdapter.notifyDataSetChanged();
             return;
         }
         showLoading();
